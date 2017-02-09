@@ -11,6 +11,10 @@ class Evaluator
     return @env[exp] if exp.is_a? Symbol
     
     case exp[0]
+    when :if
+      _, test, then_clause, else_clause = exp
+      exp = evaluate(test) ? then_clause : else_clause
+      evaluate (exp)
     when :define
       _, var, e = exp
       @env[var] = evaluate(e)
