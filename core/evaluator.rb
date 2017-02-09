@@ -6,6 +6,7 @@ class Evaluator
   end
 
   def evaluate(exp)
+    
     return exp if exp.is_a? Numeric
     return @env[exp] if exp.is_a? Symbol
     
@@ -13,10 +14,10 @@ class Evaluator
     when :define
       _, var, e = exp
       @env[var] = evaluate(e)
+    else
+      code = evaluate(exp[0])
+      args = exp[1..-1].map { |arg| eval(arg) }
+      code.(*args)
     end
-
-    code = evaluate(exp[0])
-    args = exp[1..-1].map { |arg| eval(arg) }
-    code.(*args)
   end
 end
