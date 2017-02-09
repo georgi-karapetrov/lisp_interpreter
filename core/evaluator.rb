@@ -2,11 +2,11 @@ require '../utils/env_primitives.rb'
 
 class Evaluator
   def initialize
-    @env = LIST_PRIMITIVES
+    @env = LIST_PRIMITIVES.merge(OPERATORS)
   end
 
   def evaluate(exp)
-    
+
     return exp if exp.is_a? Numeric
     return @env[exp] if exp.is_a? Symbol
     
