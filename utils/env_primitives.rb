@@ -6,10 +6,10 @@ LIST_PRIMITIVES = {
 }
 
 OPERATORS = {
-  :+ => ->(lhs, rhs) { lhs + rhs },
-  :* => ->(lhs, rhs) { lhs * rhs },
-  :- => ->(lhs, rhs) { lhs - rhs },
-  :/ => ->(lhs, rhs) { lhs / rhs },
+  :+ => ->(*list) { list.reduce(:+) },
+  :* => ->(*list) { list.reduce(:*) },
+  :- => ->(*list) { list.reduce(:-) },
+  :/ => ->(*list) { list.reduce(:/) },
   :== => ->(lhs, rhs) { lhs == rhs },
   :!= => ->(lhs, rhs) { lhs != rhs },
 }
