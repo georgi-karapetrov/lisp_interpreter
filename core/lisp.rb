@@ -1,14 +1,5 @@
 require './evaluator.rb'
-
-class String
-  def balance_whitespaces
-    self.gsub(/\s\s+/, ' ')
-  end
-
-  def pretty_parenthesise
-    self.gsub('(', ' ( ').gsub(')', ' ) ')
-  end
-end
+require '../utils/lisp_string.rb'
 
 class Lisp
   def parse(string)
@@ -17,7 +8,9 @@ class Lisp
   end
 
   def tokenize(string)
-    lisp_string = string.balance_whitespaces.pretty_parenthesise
+    lisp_string = LispString.new(string).balance_whitespaces.pretty_parenthesise
+
+    p "lisp_string = #{lisp_string}"
     lisp_string.split(' ')
   end
 
@@ -35,10 +28,8 @@ class Lisp
     case token
     when '('
       list = []
-      # may break here
+
       list << read_tokens(tokens) while tokens.first != ')'
-
-
       tokens.shift
 
       list
