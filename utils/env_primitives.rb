@@ -1,5 +1,6 @@
 LIST_PRIMITIVES = {
-  car: ->(*list) { list.first },
+  list: ->(*list) { Array.new(list) },
+  car: ->(*list) { list[0] },
   cdr: ->(*list) { list.drop(1) },
   cons: ->(head, tail) { [head] + tail },
 }
