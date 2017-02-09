@@ -1,3 +1,5 @@
+require './evaluator.rb'
+
 class String
   def balance_whitespaces
     self.gsub(/\s\s+/, ' ')
@@ -10,12 +12,13 @@ end
 
 class Lisp
   def parse(string)
-    tokenize(string)
+    tokens = tokenize(string)
+    read_tokens(tokens)
   end
 
   def tokenize(string)
     lisp_string = string.balance_whitespaces.pretty_parenthesise
-    lisp_string.split(' ').map {|token| atom(token)}.compact
+    lisp_string.split(' ')
   end
 
   def atom(token)
@@ -36,8 +39,21 @@ class Lisp
       list << read_tokens(tokens) while tokens.first != ')'
 
 
+      tokens.shift
+
+      list
+    when ')'
+      raise 'Unbalanced parentheses'
+    else
+      atom(token)
+    end
   end
 end
 
 lisp = Lisp.new
-p lisp.parse ('(+ (* 2 2) (-5 3))')
+parsed = lisp.parse ('(define pi 3.14)')
+
+p "parsed = #{parsed}"
+p "evaled = #{Evaluator.new.evaluate(parsed)}"
+
+
