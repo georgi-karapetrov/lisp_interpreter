@@ -1,50 +1,26 @@
 require './evaluator.rb'
-require '../utils/lisp_string.rb'
+require './parser.rb'
 
 class Lisp
-  def parse(string)
-    tokens = tokenize(string)
-    read_tokens(tokens)
+  
+  def initialize(parser = Parser.new, evaluator = Evaluator.new)
+    @parser = parser
+    @evaluator = evaluator
   end
 
-  def tokenize(string)
-    lisp_string = LispString.new(string).balance_whitespaces.pretty_parenthesise
-
-    p "lisp_string = #{lisp_string}"
-    lisp_string.split(' ')
+  def process(string)
+    parsed = @parser.parse(string)
+    @evaluator.evaluate(parsed)
   end
 
-  def atom(token)
-    return token.to_f if token[/\.\d+/]
-    return token.to_i if token[/\d+/]
-    return nil if token == '(' || token == ')'
-    token.to_sym
-  end
-
-  def read_tokens(tokens)
-    return if tokens.empty?
-
-    token = tokens.shift
-    case token
-    when '('
-      list = []
-
-      list << read_tokens(tokens) while tokens.first != ')'
-      tokens.shift
-
-      list
-    when ')'
-      raise 'Unbalanced parentheses'
-    else
-      atom(token)
+  def repl
+    loop do
+      print("lisp >>> ")
+      input = gets
+      print "#{process(input)}\n"
     end
   end
 end
 
-lisp = Lisp.new
-parsed = lisp.parse ('(define pi 3.14)')
-
-p "parsed = #{parsed}"
-p "evaled = #{Evaluator.new.evaluate(parsed)}"
-
-
+l = Lisp.new
+l.repl
