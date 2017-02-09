@@ -20,7 +20,7 @@ class Evaluator
       @env[var] = evaluate(e)
     else
       code = evaluate(exp[0])
-      args = exp[1..-1].map { |arg| eval(arg) }
+      args = exp[1..-1].map { |arg| evaluate(arg) }
       code.(*args)
     end
   end
