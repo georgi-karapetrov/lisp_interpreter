@@ -17,8 +17,14 @@ class Lisp
     loop do
       print("lisp >>> ")
       input = gets
-      print "#{process(input)}\n"
+      print "#{lispy_string(process(input))}\n"
     end
+  end
+
+  def lispy_string(exp)
+    return '#t' if exp == true
+    return '#f' if exp == false
+    exp
   end
 end
 
