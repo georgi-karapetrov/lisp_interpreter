@@ -1,3 +1,5 @@
+require 'cmath'
+
 LIST_PRIMITIVES = {
   list: ->(*list) { Array(list) },
   car: ->(*list) { list[0] },
@@ -27,6 +29,8 @@ OPERATORS = {
   :abs => ->(lhs) { lhs.abs },
   :add1 => ->(lhs) { lhs + 1 },
   :sub1 => ->(lhs) { lhs - 1 },
+  :sqrt => ->(lhs) { CMath.sqrt(lhs) },
+  :expt => -> (lhs, rhs) { lhs ** rhs },
 }
 
 BOOLEAN = {
