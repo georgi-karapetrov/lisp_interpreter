@@ -2,26 +2,26 @@ require '../utils/env_primitives.rb'
 
 class Evaluator
   def initialize
-    @env = LIST_PRIMITIVES.merge(OPERATORS)
+    @global_env = LIST_PRIMITIVES.merge(OPERATORS).merge(BOOLEAN)
   end
 
-  def evaluate(exp)
+  def evaluate(exp, env = @global_env)
 
     return exp if exp.is_a? Numeric
-    return @env[exp] if exp.is_a? Symbol
+    return env[exp] if exp.is_a? Symbol
     
     case exp[0]
     when :if
       _, test, then_clause, else_clause = exp
-      exp = evaluate(test) ? then_clause : else_clause
-      evaluate (exp)
+      exp = evaluate(test, env) ? then_clause : else_clause
+      evaluate(exp, env)
     when :define
       _, var, e = exp
-      @env[var] = evaluate(e)
+      env[var] = evaluate(e, env)
     else
-      code = evaluate(exp[0])
-      args = exp[1..-1].map { |arg| evaluate(arg) }
-      code.(*args)
+      procedure = evaluate(exp[0], env)
+      args = exp[1..-1].map { |arg| evaluate(arg, env) }
+      procedure.(*args)
     end
   end
 end
