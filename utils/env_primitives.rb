@@ -36,6 +36,6 @@ OPERATORS = {
 BOOLEAN = {
   :not => ->(exp) { not exp },
   :equal? => ->(lhs, rhs) { lhs == rhs },
-  "#t" => true,
-  "#f" => false,
+  '#t'.to_sym => true,
+  '#f'.to_sym => false,
 }
