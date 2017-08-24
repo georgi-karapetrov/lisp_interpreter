@@ -18,6 +18,9 @@ class Evaluator
     when :define
       _, var, e = exp
       env[var] = evaluate(e, env)
+    when :lambda
+      _, params, e = exp
+      ->(*args) { self.evaluate(e, env.merge(Hash[params.zip(args)])) }
     else
       procedure = evaluate(exp[0], env)
       args = exp[1..-1].map { |arg| evaluate(arg, env) }
