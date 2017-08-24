@@ -17,7 +17,7 @@ class Lisp
     loop do
       print("lisp >>> ")
       input = gets
-      print "#{lispy_string(process(input))}\n"
+      self.pretty_print_output(input)
     end
   end
 
@@ -27,7 +27,17 @@ class Lisp
     return "'(#{exp.join(", ")})" if exp.is_a?(Array)
     exp
   end
+
+  def pretty_print_output(input)
+    print "#{lispy_string(process(input))}\n"
+  end
 end
 
 l = Lisp.new
-l.repl
+if ARGV.size > 0
+  src = open(ARGV[0], 'r'){ |file| file.read }
+  p src
+  src.split("\n").each { |entry| l.pretty_print_output(entry)}
+else
+  l.repl
+end
