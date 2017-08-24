@@ -24,6 +24,7 @@ class Lisp
   def lispy_string(exp)
     return '#t' if exp == true
     return '#f' if exp == false
+    return "'(#{exp.join(", ")})" if exp.is_a?(Array)
     exp
   end
 end

@@ -5,6 +5,8 @@ LIST_PRIMITIVES = {
   car: ->(*list) { list[0] },
   cdr: ->(*list) { list.drop(1) },
   cons: ->(head, *tail) { [head] + tail },
+  null?: ->(*list) { list.nil? },
+  null: [],
   length: ->(*list) {list.flatten.length},
   max: ->(*list) { list.max },
   min: ->(*list) { list.min },
