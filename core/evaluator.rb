@@ -7,7 +7,7 @@ class Evaluator
 
   def evaluate(exp, env = @global_env)
 
-    return exp if exp.is_a? Numeric
+    return exp if exp.is_a? Numeric or exp.is_a? String
     return env[exp] if exp.is_a? Symbol
     
     case exp[0]

@@ -8,13 +8,13 @@ class Parser
 
   def tokenize(string)
     lisp_string = LispString.new(string).balance_whitespaces.pretty_parenthesise
-
     lisp_string.split(' ')
   end
 
   def atom(token)
     return token.to_f if token[/\.\d+/]
     return token.to_i if token[/\d+/]
+    return token if token.include?("\"")
     token.to_sym
   end
 
