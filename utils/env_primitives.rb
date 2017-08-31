@@ -36,6 +36,14 @@ OPERATORS = {
   :expt => -> (lhs, rhs) { lhs ** rhs },
 }
 
+STRINGS = {
+  :'string-length' => ->(str) { str.length },
+  :substring => ->(str, from, to = -1) { str[from..to] },
+  :'string-upcase' => ->(str) { str.upcase },
+  :'string-contains?' => ->(str, contained) { str.incude?(contained) },
+  :'string->list' => ->(str) { str.chars },
+  :'string-split' => ->(str, sep, trim = true, repeat = false) { str.chars },
+}
 BOOLEAN = {
   :not => ->(exp) { not exp },
   :equal? => ->(lhs, rhs) { lhs == rhs },

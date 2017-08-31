@@ -2,12 +2,13 @@ require '../utils/env_primitives.rb'
 
 class Evaluator
   def initialize
-    @global_env = LIST_PRIMITIVES.merge(OPERATORS).merge(BOOLEAN)
+    @global_env = LIST_PRIMITIVES.merge(OPERATORS).merge(BOOLEAN).merge(STRINGS)
   end
 
   def evaluate(exp, env = @global_env)
 
-    return exp if exp.is_a? Numeric or exp.is_a? String
+    return exp if exp.is_a? Numeric
+    return exp.gsub("\"", '') if exp.is_a? String
     return env[exp] if exp.is_a? Symbol
     
     case exp[0]
