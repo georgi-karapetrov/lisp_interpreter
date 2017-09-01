@@ -1,5 +1,11 @@
 require 'cmath'
 
+class Proc
+  def *(f)
+    ->(*args) { self.(f.(*args)) }
+  end
+end
+
 LIST_PRIMITIVES = {
   list: ->(*list) { Array(list) },
   car: ->(*list) { list[0] },
@@ -47,6 +53,11 @@ STRINGS = {
   :'string->list' => ->(str) { str.chars },
   :'string-split' => ->(str, sep, trim = true, repeat = false) { str.chars },
 }
+
+FUNCTIONS = {
+  compose: -> (*procs) { procs.reverse.reduce(:*) },
+}
+
 BOOLEAN = {
   :not => ->(exp) { not exp },
   :equal? => ->(lhs, rhs) { lhs == rhs },
