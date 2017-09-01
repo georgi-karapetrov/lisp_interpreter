@@ -56,6 +56,11 @@ STRINGS = {
   :'string-contains?' => ->(str, contained) { str.incude?(contained) },
   :'string->list' => ->(str) { str.chars },
   :'string-split' => ->(str, sep, trim = true, repeat = false) { str.chars },
+  :'string-ref' => ->(str, k) { str[k] },
+  :'string-copy' => ->(str) { str.dup },
+  :'string-append' => ->(*strs) { strs.join('') },
+  :'string?' => ->(str) { str.is_a?(String) },
+  :'string' => ->(*chars) { chars.join('') },
 }
 
 FUNCTIONS = {
