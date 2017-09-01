@@ -26,8 +26,12 @@ class Lisp
     return '#f' if exp == false
     return "#\\#{exp}" if exp.is_a?(String) and exp.length == 1
     return "\"#{exp}\"" if exp.is_a?(String)
-    return "'#{exp.join(' ')}" if exp.flatten(1).is_a?(Array) and exp.flatten(1).length == 1
-    return "'(#{exp.join(' ')})" if exp.flatten(1).is_a?(Array)
+
+    if exp.is_a?(Array)
+      exp_flattened = exp.flatten(1)
+      return "'#{exp.join(' ')}" if exp_flattened.is_a?(Array) and exp_flattened.length == 1
+      return "'(#{exp.join(' ')})" if exp_flattened.is_a?(Array)
+    end
     exp
   end
 
