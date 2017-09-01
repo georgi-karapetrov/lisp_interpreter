@@ -4,7 +4,7 @@ LIST_PRIMITIVES = {
   list: ->(*list) { Array(list) },
   car: ->(*list) { list[0] },
   cdr: ->(*list) { list.drop(1) },
-  map: ->(procedure, list) { list.map &procedure },
+  map: ->(procedure, list) { list.flatten(1).map &procedure },
   cons: ->(head, *tail) { [head] + tail },
   null?: ->(*list) { list.nil? },
   null: [],
