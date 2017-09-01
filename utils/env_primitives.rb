@@ -55,6 +55,7 @@ STRINGS = {
 }
 
 FUNCTIONS = {
+  apply: -> (proc, *args) { args.flatten.reduce(&proc) },
   compose: -> (*procs) { procs.reverse.reduce(:*) },
 }
 

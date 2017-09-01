@@ -2,7 +2,7 @@ require '../utils/env_primitives.rb'
 
 class Evaluator
   def initialize
-    @global_env = LIST_PRIMITIVES.merge(OPERATORS).merge(BOOLEAN).merge(STRINGS)
+    @global_env = LIST_PRIMITIVES.merge(OPERATORS).merge(BOOLEAN).merge(STRINGS).merge(FUNCTIONS)
   end
 
   def evaluate(exp, env = @global_env)
