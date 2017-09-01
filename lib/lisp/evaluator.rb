@@ -8,7 +8,8 @@ class Evaluator
   def evaluate(exp, env = @global_env)
 
     return exp if exp.is_a? Numeric
-    return exp.gsub("\"", '') if exp.is_a? String
+    return exp.gsub('#\\', '') if exp.is_a?(String) and exp.include?('#\\')
+    return exp.gsub("\"", '') if exp.is_a?(String)
     return env[exp] if exp.is_a? Symbol
     
     case exp[0]

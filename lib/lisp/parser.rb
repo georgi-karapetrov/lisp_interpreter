@@ -14,7 +14,7 @@ class Parser
   def atom(token)
     return token.to_f if token[/\.\d+/]
     return token.to_i if token[/\d+/]
-    return token if token.include?("\"")
+    return token if token.include?("\"") || token.include?("#\\")
     token.to_sym
   end
 

@@ -24,6 +24,7 @@ class Lisp
   def lispy_string(exp)
     return '#t' if exp == true
     return '#f' if exp == false
+    return "#\\#{exp}" if exp.is_a? String and exp.length == 1
     return "\"#{exp}\"" if exp.is_a? String
     return "'(#{exp.join(' ')})" if exp.is_a? Array
     exp
