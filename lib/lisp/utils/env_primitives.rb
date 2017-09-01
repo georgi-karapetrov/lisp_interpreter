@@ -18,6 +18,10 @@ LIST_PRIMITIVES = {
   null?: ->(*list) { list.nil? },
   null: [],
   length: ->(*list) {list.flatten.length},
+  :'list-ref' => ->(list, pos) { list[pos] },
+  :'list-tail' => ->(list, pos) { list[pos..-1] },
+  append: ->(*list) { list.reduce(:+) },
+  reverse: ->(list) { list.reverse },
   max: ->(*list) { list.max },
   min: ->(*list) { list.min },
 }
