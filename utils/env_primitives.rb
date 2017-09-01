@@ -18,7 +18,7 @@ OPERATORS = {
   :* => ->(*list) { list.reduce(:*) },
   :- => ->(*list) { list.reduce(:-) },
   :/ => ->(*list) { list.reduce(:/) },
-  '='.to_sym => ->(*list) { list.uniq.length == 1 },
+  :'=' => ->(*list) { list.uniq.length == 1 },
   :!= => ->(*list) { list.uniq.length != 1 },
   :> => ->(*list) { list.each_cons(2).all? { |lhs, rhs| lhs > rhs } },
   :< => ->(*list) { list.each_cons(2).all? { |lhs, rhs| lhs < rhs } },
@@ -47,6 +47,6 @@ STRINGS = {
 BOOLEAN = {
   :not => ->(exp) { not exp },
   :equal? => ->(lhs, rhs) { lhs == rhs },
-  '#t'.to_sym => true,
-  '#f'.to_sym => false,
+  :'#t' => true,
+  :'#f' => false,
 }
