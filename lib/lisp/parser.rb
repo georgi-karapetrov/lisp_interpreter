@@ -1,4 +1,4 @@
-require '../utils/lisp_string.rb'
+require_relative 'utils/lisp_string'
 
 class Parser
   def parse(string)

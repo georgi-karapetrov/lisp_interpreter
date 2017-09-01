@@ -1,4 +1,4 @@
-require '../utils/env_primitives.rb'
+require_relative 'utils/env_primitives'
 
 class Evaluator
   def initialize
