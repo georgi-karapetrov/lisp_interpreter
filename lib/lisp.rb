@@ -1,8 +1,15 @@
 require_relative 'lisp/evaluator'
 require_relative 'lisp/parser'
 
+#neat monkey patching
+class Proc
+  def to_s
+  '#<procedure>'
+  end
+end
+
 class Lisp
-  
+ 
   def initialize(parser = Parser.new, evaluator = Evaluator.new)
     @parser = parser
     @evaluator = evaluator
