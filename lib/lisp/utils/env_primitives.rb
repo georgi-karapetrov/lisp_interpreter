@@ -10,6 +10,7 @@ LIST_PRIMITIVES = {
   list: ->(*list) { Array(list) },
   car: ->(*list) { list[0] },
   cdr: ->(*list) { list.drop(1) },
+  caddr: ->(list) { list[2] },
   map: ->(procedure, list) { list.flatten(1).map &procedure },
   foldl: ->(procedure, init, *list) { list.flatten(1).reduce(init, &procedure) },
   filter: ->(pred, *list) { list.flatten(1).select &procedure },
