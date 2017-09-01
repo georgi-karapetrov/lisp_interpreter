@@ -13,6 +13,8 @@ class Evaluator
     return env[exp] if exp.is_a? Symbol
     
     case exp[0]
+    when :quote
+      exp[1..-1]
     when :if
       _, test, then_clause, else_clause = exp
       exp = evaluate(test, env) ? then_clause : else_clause
