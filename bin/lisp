@@ -3,7 +3,7 @@ require 'lisp'
 lisp = Lisp.new
 if ARGV.size > 0
   src = open(ARGV[0], 'r') { |file| file.read }
-  src.split("\n").each { |entry| lisp.pretty_print_output(entry) }
+  src.split("\n").each { |entry| print lisp.generate_output(entry) }
 else
   lisp.repl
 end
