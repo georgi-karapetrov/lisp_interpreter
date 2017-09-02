@@ -54,4 +54,52 @@ RSpec.describe Lisp do
 		lisp = Lisp.new
 		expect(lisp.generate_output(compose)).to eq "6\n"
 	end
+
+	let(:sum) { '(+ 1 2 3)' }
+	it 'sums elements of list' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(sum)).to eq "6\n"
+	end
+
+	let(:string_length) { '(string-length "abcde")' }
+	it 'sums elements of list' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(string_length)).to eq "5\n"
+	end
+
+	let(:truthy) { '#t' }
+	it 'tests for truthy' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(truthy)).to eq "#t\n"
+	end
+
+	let(:falsy) { '#f' }
+	it 'tests for falsy' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(falsy)).to eq "#f\n"
+	end
+
+	let(:quotient) { '(quotient 10 3)' }
+	it 'calculates quotient' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(quotient)).to eq "3\n"
+	end
+
+	let(:has_member) { '(member 2 (list 1 2 3 4))' }
+	it 'checks if list has member' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(has_member)).to eq "'(2 3 4)\n"
+	end
+
+	let(:does_not_have_member) { '(member 5 (list 1 2 3 4))' }
+	it 'checks if list does not have member' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(does_not_have_member)).to eq "#f\n"
+	end
+
+	let(:list_is_ascending) { '(> (list 1 2 3 4))' }
+	it 'checks if a list is in ascending order' do
+		lisp = Lisp.new
+		expect(lisp.generate_output(list_is_ascending)).to eq "#t\n"
+	end
 end
