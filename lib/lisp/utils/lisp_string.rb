@@ -1,9 +1,10 @@
+# Pretty string with some extra functionality
 class LispString < String
   def balance_whitespaces
-    self.gsub(/\s\s+/, ' ')
+    gsub(/\s\s+/, ' ')
   end
 
   def pretty_parenthesise
-    self.gsub('(', ' ( ').gsub(')', ' ) ')
+    gsub('(', ' ( ').gsub(')', ' ) ')
   end
 end

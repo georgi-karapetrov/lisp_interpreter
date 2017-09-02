@@ -1,5 +1,7 @@
 require_relative 'utils/lisp_string'
 
+# Used to parse the user input string,
+# generate tokens and parse them
 class Parser
   def parse(string)
     tokens = tokenize(string)
@@ -14,21 +16,18 @@ class Parser
   def atom(token)
     return token.to_f if token[/\.\d+/]
     return token.to_i if token[/\d+/]
-    return token if token.include?("\"") || token.include?("#\\")
+    return token if token.include?('"') || token.include?('#\\')
     token.to_sym
   end
 
   def read_tokens(tokens)
     return if tokens.empty?
-
     token = tokens.shift
     case token
     when '('
       list = []
-
       list << read_tokens(tokens) while tokens.first != ')'
       tokens.shift
-
       list
     when ')'
       raise 'Unbalanced parentheses'

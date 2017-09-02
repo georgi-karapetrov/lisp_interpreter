@@ -1,8 +1,9 @@
 require 'cmath'
 
+# Extends the proc class to add 'compose' functionality
 class Proc
-  def *(f)
-    ->(*args) { self.(f.(*args)) }
+  def *(other)
+    ->(*args) { call(other.call(*args)) }
   end
 end
 
@@ -11,10 +12,10 @@ LIST_PRIMITIVES = {
   car: ->(list) { list[0] },
   cdr: ->(list) { list.drop(1) },
   caddr: ->(list) { list[2] },
-  map: ->(procedure, *list) { list.flatten(1).map &procedure },
-  foldl: ->(procedure, init, *list) { list.flatten(1).reduce(init, &procedure) },
-  filter: ->(pred, *list) { list.flatten(1).select &procedure },
-  member: ->(elem, list) { list.include?(elem) ? list[list.index(elem)..-1] : false },
+  map: ->(procedure, *list) { list.flatten(1).map(&procedure) },
+  foldl: ->(procd, init, *list) { list.flatten(1).reduce(init, &procd) },
+  filter: ->(pred, *list) { list.flatten(1).select(&pred) },
+  member: ->(el, lst) { lst.include?(el) ? lst[lst.index(el)..-1] : false },
   cons: ->(a, d) { [a, d] },
   null?: ->(list) { list.nil? },
   null: [],
@@ -24,8 +25,8 @@ LIST_PRIMITIVES = {
   append: ->(*list) { list.reduce(:+) },
   reverse: ->(list) { list.reverse },
   max: ->(*list) { list.max },
-  min: ->(*list) { list.min },
-}
+  min: ->(*list) { list.min }
+}.freeze
 
 OPERATORS = {
   :+ => ->(*list) { list.reduce(:+) },
@@ -47,8 +48,8 @@ OPERATORS = {
   :add1 => ->(lhs) { lhs + 1 },
   :sub1 => ->(lhs) { lhs - 1 },
   :sqrt => ->(lhs) { CMath.sqrt(lhs) },
-  :expt => -> (lhs, rhs) { lhs ** rhs },
-}
+  :expt => ->(lhs, rhs) { lhs**rhs }
+}.freeze
 
 STRINGS = {
   :'string-length' => ->(str) { str.length },
@@ -60,17 +61,17 @@ STRINGS = {
   :'string-copy' => ->(str) { str.dup },
   :'string-append' => ->(*strs) { strs.join('') },
   :'string?' => ->(str) { str.is_a?(String) },
-  :'string' => ->(*chars) { chars.join('') },
-}
+  :string => ->(*chars) { chars.join('') }
+}.freeze
 
 FUNCTIONS = {
-  apply: -> (proc, *args) { args.flatten.reduce(&proc) },
-  compose: -> (*procs) { procs.reverse.reduce(:*) },
-}
+  apply: ->(proc, *args) { args.flatten.reduce(&proc) },
+  compose: ->(*procs) { procs.reverse.reduce(:*) }
+}.freeze
 
 BOOLEAN = {
-  :not => ->(exp) { not exp },
+  :not => ->(exp) { !exp },
   :equal? => ->(lhs, rhs) { lhs == rhs },
   :'#t' => true,
-  :'#f' => false,
-}
+  :'#f' => false
+}.freeze
