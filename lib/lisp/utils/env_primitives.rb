@@ -15,7 +15,7 @@ LIST_PRIMITIVES = {
   foldl: ->(procedure, init, *list) { list.flatten(1).reduce(init, &procedure) },
   filter: ->(pred, *list) { list.flatten(1).select &procedure },
   member: ->(elem, list) { list.include?(elem) ? list[list.index(elem)..-1] : false },
-  cons: ->(head, *tail) { [head] + tail },
+  cons: ->(a, d) { [a, d] },
   null?: ->(list) { list.nil? },
   null: [],
   length: ->(list) { list.length },
