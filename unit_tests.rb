@@ -62,7 +62,7 @@ RSpec.describe Lisp do
 	end
 
 	let(:string_length) { '(string-length "abcde")' }
-	it 'sums elements of list' do
+	it 'checks the length of string' do
 		lisp = Lisp.new
 		expect(lisp.generate_output(string_length)).to eq "5\n"
 	end
