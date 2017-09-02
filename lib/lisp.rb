@@ -24,7 +24,7 @@ class Lisp
     loop do
       print("lisp >>> ")
       input = gets
-      self.pretty_print_output(input)
+      print self.generate_output(input)
     end
   end
 
@@ -42,7 +42,7 @@ class Lisp
     exp
   end
 
-  def pretty_print_output(input)
-    print "#{lispy_string(process(input))}\n"
+  def generate_output(input)
+    "#{lispy_string(process(input))}\n"
   end
 end
