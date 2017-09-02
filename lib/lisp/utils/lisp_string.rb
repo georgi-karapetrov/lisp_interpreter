@@ -5,5 +5,5 @@ class LispString < String
 
   def pretty_parenthesise
     self.gsub('(', ' ( ').gsub(')', ' ) ')
-  end 
+  end
 end
