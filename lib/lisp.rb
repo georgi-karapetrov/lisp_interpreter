@@ -1,7 +1,7 @@
 require_relative 'lisp/evaluator'
 require_relative 'lisp/parser'
 
-#neat monkey patching
+# neat monkey patching
 class Proc
   def to_s
   '#<procedure>'
